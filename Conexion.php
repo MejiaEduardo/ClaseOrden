@@ -3,10 +3,10 @@ class Connection {
     private $pdo;
 
     public function __construct() {
-        $dbname = "Archivoshtml";  // Cambia esto por el nombre de tu base de datos
+        $dbname = "Prueba";  // Cambia esto por el nombre de tu base de datos
         $host = "localhost";  // Cambia esto si tu base de datos no está en el mismo servidor
         $username = "postgres";  // Cambia esto por tu nombre de usuario de PostgreSQL
-        $password = "1234";  // Cambia esto por tu contraseña de PostgreSQL
+        $password = "12345678";  // Cambia esto por tu contraseña de PostgreSQL
 
         $dsn = "pgsql:host=$host;dbname=$dbname";
 
