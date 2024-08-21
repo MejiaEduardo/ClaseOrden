@@ -53,20 +53,27 @@
             function CargarJSON(){
                 fetch('LibroController.php')
                 .then(function(response){
-                    return response.json();
+                    return response.text();
                 })
                 .then(function(dato){
                     //solo para mostrar que se recibe una estructura json
-                    alert(dato);
+                    alert("Recibimos: "+dato);
     
                     //se convierte el json en objeto javascript para mejor control
-                    var objeto = dato;
+                    var objeto = JSON.parse(dato);
     
                     //para mostrar como se llama a una propiedad del objeto json
-                    alert(objeto.data);
+                    alert("Tipo Libro: "+objeto.data.tipolibro);
     
                     //se incluyen los valores a los input
-                    document.getElementById('paginas').value= objeto.paginas;
+                    document.getElementById('tipolibro').value= objeto.data.tipolibro;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('paginas').value= objeto.data.paginas;
               
                 })
             }

@@ -37,7 +37,7 @@ class Libro {
             
             if ($resultado) {
 
-                return json_encode($resultado);
+                return $resultado;
             } else {
                 return false;
             }
