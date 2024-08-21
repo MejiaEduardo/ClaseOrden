@@ -68,7 +68,7 @@
                     //se incluyen los valores a los input
                     document.getElementById('tipolibro').value= objeto.data.tipolibro;
                     document.getElementById('paginas').value= objeto.data.paginas;
-                    document.getElementById('paginas').value= objeto.data.paginas;
+                    document.getElementById('autor').value= objeto.data.autor;
                     document.getElementById('paginas').value= objeto.data.paginas;
                     document.getElementById('paginas').value= objeto.data.paginas;
                     document.getElementById('paginas').value= objeto.data.paginas;
@@ -99,7 +99,7 @@
     
                 //se indica le metodo como se pasan los datos: post o get
                 //y se pasa el objeto de tipo FormData
-                fetch('retorna_texto.php', {method: 'POST', body: DatosFormulario})
+                fetch('LibroController.php', {method: 'POST', body: DatosFormulario})
                 .then(function(response){
                     if (response.ok){
                         return response.text();
