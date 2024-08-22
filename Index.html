@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar Libro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="libroForm" action="LibroController.php" method="POST">
+        <label for="tipo">Tipo de Libro:</label>
+        <select id="tipolibro" name="tipolibro">
+            <option value="libro electronico">Libro Electrónico</option>
+            <option value="libro papel">Libro Papel</option>
+            <option value="audiolibro">Audiolibro</option>
+        </select>
+        <br><br>
+        <label for="paginas">Número de Páginas:</label>
+        <input type="text" id="paginas" name="paginas" placeholder="Número de Páginas" required><br><br>
+        
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" placeholder="Autor" required><br><br>
+        
+        <label for="editor">Editor:</label>
+        <input type="text" id="editor" name="editor" placeholder="Editor" required><br><br>
+        
+        <label for="enlace">Enlace:</label>
+        <input type="text" id="enlace" name="enlace" placeholder="Enlace"><br><br>
+        
+        <label for="portada">Portada:</label>
+        <input type="text" id="portada" name="portada" placeholder="Portada" required><br><br>
+        
+        <label for="tamanio">Tamaño:</label>
+        <input type="text" id="tamanio" name="tamanio" placeholder="Tamaño" required><br><br>
+        
+        <label for="peso">Peso:</label>
+        <input type="text" id="peso" name="peso" placeholder="Peso" required><br><br>
+        
+        <button type="submit">Leer libro</button>
+    </form>
+
+    <div id="resultado"></div>
+   
+    
+            <!-- boton para cargar info desde archivo json-->
+            <br><br>
+            <button type="button" onclick="CargarJSON();">Cargar Información</button>
+            <footer>
+    
+            </footer>
+            <script type="text/javascript">
+            //recibe información de archivo externo en formato json
+            function CargarJSON(){
+                fetch('LibroController.php')
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(dato){
+                    //solo para mostrar que se recibe una estructura json
+                    alert(dato);
+    
+                    //se convierte el json en objeto javascript para mejor control
+                    var objeto = dato;
+    
+                    //para mostrar como se llama a una propiedad del objeto json
+                    alert(objeto.data);
+    
+                    //se incluyen los valores a los input
+                    document.getElementById('paginas').value= objeto.paginas;
+              
+                })
+            }
+    
+            //envia datos del formulario a otro archivo para que se procese
+            function EnviarDatos(){
+                 //se pueden enviar daros de varias formas, por ejemplo mediante campos separados
+                //usando la propiedad name del formulario, luego name del input
+                var Nombre= document.Formulario.txtNombre.value;
+    
+                //usando la propiedad id del input directamente
+                var Carrera= document.getElementById('txtCarrera').value;
+    
+                /*
+                Tambien se puede enviar todo el formulario
+                La clase FormData crea un objeto conteniendo la pareja:
+                campos : valor; formados por la pareja name y value de los 
+                campos input o select o cualquier otro campo dentro del formulario
+                con el id que se pasa como parámetro en el new
+                */
+    
+                const DatosFormulario= new FormData(document.getElementById('Formulario'));            
+    
+                //se indica le metodo como se pasan los datos: post o get
+                //y se pasa el objeto de tipo FormData
+                fetch('retorna_texto.php', {method: 'POST', body: DatosFormulario})
+                .then(function(response){
+                    if (response.ok){
+                        return response.text();
+                    }else{
+                        throw "Error al guardar (ajax)";
+                    }
+                })
+                .then(function(dato){
+                    /*si todo salio bien se llega aquí
+                    no es necesario escribir el contenido de dato
+                    bastará con un mensaje de confirmación para el usuario
+                    para que sepa que se gurdaron los datos.
+                    También puede ir otro codigo como llamar a otro archivo html, etc
+                    */
+                    alert(dato);
+                    document.getElementById('txtTitulo').value= dato;
+                })
+                .catch(function(err){
+                    alert("Error al guardar (base datos)");
+                });            
+            }
+            </script>
+        </body>
+    </html>
